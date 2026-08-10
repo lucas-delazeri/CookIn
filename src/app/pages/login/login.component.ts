@@ -23,6 +23,10 @@ export class LoginComponent {
         password: new FormControl('', [Validators.required, Validators.minLength(6)])
       })
     }
+
+    submit() {
+      console.log(this.loginForm.value)
+    }
 }
 export { DefaultLoginLayoutComponent };
 
