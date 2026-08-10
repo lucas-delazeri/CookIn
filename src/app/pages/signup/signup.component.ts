@@ -35,9 +35,29 @@ export class SignupComponent {
   }
 
   submit() {
-    this.loginService.login(this.signupForm.value.email, this.signupForm.value.password).subscribe({
-      next: () => this.toastService.success("Login feito com sucesso!"),
-      error: () => this.toastService.error("Erro inesperado! Tente novamente mais tarde")
+    if (this.signupForm.invalid) {
+      this.toastService.warning("Preencha todos os campos corretamente.");
+      return;
+    }
+
+    if (this.signupForm.value.password !== this.signupForm.value.passwordConfirm) {
+      this.toastService.error("As senhas não coincidem!");
+      return;
+    }
+
+    this.loginService.signup(
+      this.signupForm.value.name,
+      this.signupForm.value.email,
+      this.signupForm.value.password
+    ).subscribe({
+      next: () => {
+        this.toastService.success("Cadastro realizado com sucesso!");
+        this.router.navigateByUrl("/login");
+      },
+      error: (err) => {
+        const mensagem = err.error?.message || "Erro ao realizar cadastro!";
+        this.toastService.error(mensagem);
+      }
     });
   }
 
