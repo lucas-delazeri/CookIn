@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserComponent } from './pages/user/user.component';
+import { ForgotComponent } from './pages/forgot/forgot.component';
 
 export const routes: Routes = [
     {
@@ -22,6 +23,10 @@ export const routes: Routes = [
         path: "user",
         component: UserComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: "forgot",
+        component: ForgotComponent
     },
     {
         path: "**",
