@@ -1,0 +1,79 @@
+nav {
+    background: #1F1F1E;
+    background: radial-gradient(circle, rgba(31, 31, 30, 1) 0%, rgba(52, 52, 64, 1) 42%, rgba(122, 131, 133, 1) 100%);
+    width: 100%;
+    position: absolute;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+nav .userLocation {
+    background-color: rgb(255, 185, 127);
+    width: 20px;
+}
+
+nav .search-bar {
+    background-color: #ccc;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 430px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+nav .search-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+nav .search-bar input {
+    flex: 1;
+    min-width: 0; // evita que o input estoure o flex container
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    color: #333;
+
+    &::placeholder {
+        color: #666;
+    }
+}
+
+@media (max-width: 600px) {
+    nav {
+        height: 200px;
+        padding: 0 12px;
+    }
+
+    nav .search-bar {
+        height: 36px;
+        border-radius: 18px;
+    }
+
+    nav .search-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    nav .search-bar input {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 400px) {
+    nav {
+        height: 160px;
+    }
+}
