@@ -1,6 +1,45 @@
 <nav>
+    <div class="nav-top">
+        <span class="greeting">Olá, {{ username }}!</span>
+        <div class="nav-actions">
+            <button class="new-recipe-btn" (click)="createRecipe()">+ Nova receita</button>
+            <button class="logout-btn" (click)="logout()">Sair</button>
+        </div>
+    </div>
+
     <div class="search-bar">
         <img src="../../../assets/png/search.png" class="search-icon">
         <input type="text" placeholder="Search for some recipe">
     </div>
 </nav>
+
+<main>
+    <ul class="categories">
+        <li
+            *ngFor="let category of categories"
+            [class.active]="category === activeCategory"
+            (click)="selectCategory(category)"
+        >
+            {{ category }}
+        </li>
+    </ul>
+
+    <p class="section-label">Minhas receitas</p>
+
+    <div class="recipe-grid" *ngIf="recipes.length > 0; else emptyState">
+        <div class="recipe-card" *ngFor="let recipe of recipes" (click)="openRecipe(recipe.id)">
+            <img [src]="recipe.imageUrl" [alt]="recipe.title">
+            <div class="card-info">
+                <p class="title">{{ recipe.title }}</p>
+                <div class="author-row">
+                    <div class="avatar">{{ getInitials(recipe.authorName) }}</div>
+                    <span class="author-name">{{ recipe.authorName }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #emptyState>
+        <p class="empty-message">Nenhuma receita encontrada ainda.</p>
+    </ng-template>
+</main>
