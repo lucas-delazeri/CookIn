@@ -3,77 +3,239 @@ nav {
     background: radial-gradient(circle, rgba(31, 31, 30, 1) 0%, rgba(52, 52, 64, 1) 42%, rgba(122, 131, 133, 1) 100%);
     width: 100%;
     position: absolute;
-    height: 260px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    min-height: 380px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 16px;
+    padding: 28px 16px 36px;
     box-sizing: border-box;
+    gap: 20px;
+
+    .nav-top {
+        width: 100%;
+        max-width: 430px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .greeting {
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 8px;
+
+            button {
+                font-size: 12px;
+                padding: 6px 14px;
+                border-radius: 8px;
+                cursor: pointer;
+                border: none;
+            }
+
+            .new-recipe-btn {
+                background: #3d3d42;
+                color: #f2f2f2;
+
+                &:hover {
+                    background: #4a4a50;
+                }
+            }
+
+            .logout-btn {
+                background: transparent;
+                border: 1px solid #666;
+                color: #ccc;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.08);
+                }
+            }
+        }
+    }
+
+    .search-bar {
+        background-color: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 28px;
+        width: 100%;
+        max-width: 430px;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+        box-sizing: border-box;
+        backdrop-filter: blur(14px);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+        position: relative;
+        z-index: 3;
+    }
+
+    .search-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        flex-shrink: 0;
+        filter: invert(1);
+    }
+
+    .search-bar input {
+        flex: 1;
+        min-width: 0;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 14px;
+        color: #333;
+
+        &::placeholder {
+            color: #666;
+        }
+    }
 }
 
-nav .userLocation {
-    background-color: rgb(255, 185, 127);
-    width: 20px;
-}
-
-nav .search-bar {
-    background-color: #ccc;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 430px;
-    height: 40px;
+main {
     position: relative;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    box-sizing: border-box;
-}
+    z-index: 1;
+    margin-top: 420px;
+    padding: 24px 32px;
 
-nav .search-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    flex-shrink: 0;
-}
+    .categories {
+        display: flex;
+        gap: 8px;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 24px 0;
+        overflow-x: auto;
 
-nav .search-bar input {
-    flex: 1;
-    min-width: 0; // evita que o input estoure o flex container
-    height: 100%;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-size: 14px;
-    color: #333;
+        li {
+            cursor: pointer;
+            padding: 6px 14px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-size: 13px;
+            color: #666;
+            transition: all 0.2s;
 
-    &::placeholder {
-        color: #666;
+            &:hover {
+                border-color: #aaa;
+            }
+
+            &.active {
+                color: white;
+                font-weight: 500;
+                background-color: #C67C4E;
+            }
+        }
+    }
+
+    .section-label {
+        font-size: 13px;
+        color: #999;
+        margin: 0 0 10px;
+    }
+
+    .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+    }
+
+    .recipe-card {
+        cursor: pointer;
+        border: 1px solid #c2bbbb;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        transition: transform 0.2s, box-shadow 0.2s;
+
+        img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-info {
+            padding: 10px 12px;
+
+            .title {
+                font-size: 14px;
+                font-weight: 500;
+                margin: 0 0 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .author-row {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+
+                .avatar {
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: #e6f1fb;
+                    color: #185fa5;
+                    font-size: 9px;
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+
+                .author-name {
+                    font-size: 12px;
+                    color: #888;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+
+    .empty-message {
+        text-align: center;
+        color: #999;
+        margin-top: 40px;
+        font-size: 14px;
     }
 }
 
 @media (max-width: 600px) {
     nav {
-        height: 200px;
-        padding: 0 12px;
+        min-height: 300px;
+        padding: 20px 12px 24px;
     }
 
-    nav .search-bar {
-        height: 36px;
-        border-radius: 18px;
-    }
-
-    nav .search-icon {
-        width: 18px;
-        height: 18px;
-    }
-
-    nav .search-bar input {
-        font-size: 13px;
+    main {
+        margin-top: 320px;
+        padding: 20px 16px;
     }
 }
 
 @media (max-width: 400px) {
     nav {
-        height: 160px;
+        min-height: 260px;
+        padding: 18px 12px 22px;
+    }
+
+    main {
+        margin-top: 290px;
+        padding: 18px 14px;
     }
 }
