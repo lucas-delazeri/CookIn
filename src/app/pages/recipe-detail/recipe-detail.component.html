@@ -1,0 +1,39 @@
+<div class="detail-page" *ngIf="!loading && recipe">
+    <button class="back-btn" (click)="goBack()">Voltar</button>
+
+    <div class="hero">
+        <img [src]="recipe.imageUrl" [alt]="recipe.title">
+    </div>
+
+    <div class="content">
+        <div class="header-row">
+            <div>
+                <span class="category-tag">{{ recipe.category }}</span>
+                <h1>{{ recipe.title }}</h1>
+                <span class="author">por {{ recipe.authorName }}</span>
+            </div>
+
+            <button class="delete-btn" *ngIf="isAuthor" (click)="deleteRecipe()">Excluir</button>
+        </div>
+
+        <p class="description">{{ recipe.description }}</p>
+
+        <section class="ingredients">
+            <h2>Ingredientes</h2>
+            <ul>
+                <li *ngFor="let ingredient of recipe.ingredients">{{ ingredient }}</li>
+            </ul>
+        </section>
+
+        <section class="steps">
+            <h2>Modo de Preparo</h2>
+            <ol>
+                <li *ngFor="let step of recipe.steps">{{ step }}</li>
+            </ol>
+        </section>
+    </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+    <p>Carregando receita...</p>
+</div>
