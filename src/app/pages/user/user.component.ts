@@ -15,7 +15,7 @@ import { RecipeService } from '../../services/recipe.service';
 export class UserComponent implements OnInit {
   username: string = "";
   recipes: Recipe[] = [];
-  categories: string[] = ['Todas', 'Cakes', 'Candies', 'Stakes', 'Soups', 'Drinks'];
+  categories: string[] = ['Todas', 'Bolos', 'Doces', 'Carnes', 'Sopas', 'Drinks'];
   activeCategory: string = 'Todas';
   searchText: string = '';
   allRecipes: Recipe[] = [];
