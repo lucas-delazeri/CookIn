@@ -1,0 +1,42 @@
+<div class="create-page">
+    <button class="back-btn" (click)="cancel()">← Cancelar</button>
+
+    <h1>Nova Receita</h1>
+
+    <form [formGroup]="recipeForm" (ngSubmit)="submit()">
+        <label>Título</label>
+        <input type="text" formControlName="title" placeholder="Ex: Bolo de Chocolate">
+
+        <label>Categoria</label>
+        <select formControlName="category">
+            <option value="" disabled selected>Selecione uma categoria</option>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+
+        <label>URL da Imagem</label>
+        <input type="text" formControlName="imageUrl" placeholder="https://...">
+
+        <label>Descrição</label>
+        <textarea formControlName="description" rows="3" placeholder="Uma breve descrição da receita"></textarea>
+
+        <label>Ingredientes</label>
+        <div formArrayName="ingredients">
+            <div class="dynamic-row" *ngFor="let ingredient of ingredients.controls; let i = index">
+                <input type="text" [formControlName]="i" placeholder="Ex: 2 xícaras de farinha">
+                <button type="button" (click)="removeIngredient(i)">✕</button>
+            </div>
+        </div>
+        <button type="button" class="add-btn" (click)="addIngredient()">+ Adicionar ingrediente</button>
+
+        <label>Modo de Preparo</label>
+        <div formArrayName="steps">
+            <div class="dynamic-row" *ngFor="let step of steps.controls; let i = index">
+                <textarea [formControlName]="i" rows="2" placeholder="Descreva o passo {{ i + 1 }}"></textarea>
+                <button type="button" (click)="removeStep(i)">✕</button>
+            </div>
+        </div>
+        <button type="button" class="add-btn" (click)="addStep()">+ Adicionar passo</button>
+
+        <button type="submit" class="submit-btn" [disabled]="recipeForm.invalid">Publicar Receita</button>
+    </form>
+</div>
