@@ -9,7 +9,12 @@
 
     <div class="search-bar">
         <img src="../../../assets/png/search.png" class="search-icon">
-        <input type="text" placeholder="Search for some recipe">
+        <input
+            type="text"
+            placeholder="Search for some recipe"
+            [(ngModel)]="searchText"
+            (ngModelChange)="applyFilters()"
+        />
     </div>
 </nav>
 

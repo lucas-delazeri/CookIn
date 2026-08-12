@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Recipe } from '../../types/recipe.type';
 import { RecipeService } from '../../services/recipe.service';
@@ -7,7 +8,7 @@ import { RecipeService } from '../../services/recipe.service';
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })
@@ -16,6 +17,8 @@ export class UserComponent implements OnInit {
   recipes: Recipe[] = [];
   categories: string[] = ['Todas', 'Cakes', 'Candies', 'Stakes', 'Soups', 'Drinks'];
   activeCategory: string = 'Todas';
+  searchText: string = '';
+  allRecipes: Recipe[] = [];
 
   constructor(
     private router: Router,
@@ -29,8 +32,24 @@ export class UserComponent implements OnInit {
 
   loadRecipes() {
     this.recipeService.getMyRecipes().subscribe({
-      next: (data: any) => this.recipes = data,
-      error: () => this.recipes = []
+      next: (data: Recipe[]) => {
+        this.allRecipes = data;
+        this.applyFilters();
+      },
+      error: () => {
+        this.allRecipes = [];
+        this.recipes = [];
+      }
+    });
+  }
+
+  applyFilters() {
+    const text = this.searchText.trim().toLowerCase();
+    this.recipes = this.allRecipes.filter(recipe => {
+      const matchesTitle = recipe.title.toLowerCase().includes(text);
+      const matchesCategory = this.activeCategory === 'Todas'
+        || recipe.category === this.activeCategory;
+      return matchesTitle && matchesCategory;
     });
   }
 
@@ -60,6 +79,11 @@ export class UserComponent implements OnInit {
 
   openRecipe(id: number) {
     this.router.navigateByUrl(`/recipe/${id}`);
+  }
+
+  onSearch(value: string) {
+    this.searchText = value;
+    this.applyFilters();
   }
 
   createRecipe() {
